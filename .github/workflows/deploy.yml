@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - 'serverless.yml'
-      - 'template-kaskadi-lambda.js'
+      - 'kaskadi-webhooks-status-lambda.js'
 jobs:
   serverless:
     runs-on: ubuntu-latest
