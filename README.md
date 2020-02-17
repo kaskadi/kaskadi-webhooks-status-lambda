@@ -7,7 +7,7 @@
 # :computer: Creating a new Lambda from this template :computer:
 
 **Checklist (delete items when done)**
-- create a new repository and choose this repository (`template-kaskadi-lambda`) as template
+- create a new repository and choose this repository (`kaskadi-webhooks-status-lambda`) as template
 - clone the new repository to a local working copy
 - set secrets up ([help](#Set-secrets-up))
 - add the new repository to:
