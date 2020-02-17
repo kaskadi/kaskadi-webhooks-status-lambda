@@ -1,0 +1,9 @@
+name: init
+on: create
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Init
+      run: bash .github/workflows/scripts/init.sh
