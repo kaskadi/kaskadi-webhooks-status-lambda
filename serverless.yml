@@ -30,6 +30,7 @@ functions:
     environment:
       ES_ACCESS_ID: ${env:ES_ACCESS_ID}
       ES_ACCESS_SECRET: ${env:ES_ACCESS_SECRET}
+      YSWS_TOKEN: ${env:YSWS_TOKEN}
     events:
       - http:
           method: post

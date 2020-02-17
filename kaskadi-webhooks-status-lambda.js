@@ -4,10 +4,22 @@ const es = require('aws-es-client')({
   url: 'https://search-kaskadi-cl2e6mhgx3zc7ay2e5kkhjet4u.eu-central-1.es.amazonaws.com'
 })
 
+const token = process.env.YSWS_TOKEN
 
 module.exports.handler = async (event) => {
-  console.log(event.body)
   const eventBody = JSON.parse(event.body)
+  if (eventBody.token !== token) {
+    return {
+      statusCode: 401,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        message: 'Unauthorized.'
+      })
+    }
+  }
+  console.log(event.body)
   const id = eventBody.eventData.externalId
   const orderStatus = eventBody.eventData.statusName
   const esData = await es.get({
