@@ -33,5 +33,5 @@ functions:
     events:
       - http:
           method: post
-          path: webhooks/status
+          path: status
           cors: true
