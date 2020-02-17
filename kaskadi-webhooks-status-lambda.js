@@ -8,16 +8,23 @@ const es = require('aws-es-client')({
 module.exports.handler = async (event) => {
   console.log(event.body)
   const eventBody = JSON.parse(event.body)
-  const body = {
-    kaskadiMeta: {
-      orderStatus: eventBody.eventData.statusName
-    }
-  }
-  es.update({
-    id: eventBody.eventData.externalId,
-    index: 'ysws-orders',
-    body
+  const id = eventBody.eventData.externalId
+  const orderStatus = eventBody.eventData.statusName
+  const esData = await es.get({
+    id,
+    index: 'ysws-orders'
   })
+  if (esData._source.kaskadiMeta.orderStatus !== orderStatus) {
+    es.update({
+      id,
+      index: 'ysws-orders',
+      body: {
+        kaskadiMeta: {
+          orderStatus
+        }
+      }
+    })
+  }
   return {
     statusCode: 200,
     headers: {
