@@ -1,7 +1,5 @@
-# ATTENTION: when done with setting up this file, you can go into .github/workflows/deploy.yml to use the 'deploy -v' command for this action in order to deploy your lambda
-
 service:
-  name: PROJECT_NAME-API_LOGICAL_UNIT-kaskadi-webhooks-status-lambda
+  name: kaskadi-webhooks-status-lambda
 
 package:
   individually: true
@@ -16,11 +14,10 @@ provider:
   region: ${opt:region, 'eu-central-1'}
   deploymentBucket:
     name: ${env:SLS_DEPLOY_BUCKET}
-  deploymentPrefix: ${self:service.name}
-  # uncomment the following if you need to link to an API. Replace with the proper exported value from your API
-  # apiGateway:
-  #   restApiId: !ImportValue RestAPIGatewayId
-  #   restApiRootResourceId: !ImportValue RestAPIGatewayRootResourceId
+  deploymentPrefix: '@kaskadi/${self:service.name}'
+  apiGateway:
+    restApiId: !ImportValue KaskadiWebhooksRestAPIGatewayId
+    restApiRootResourceId: !ImportValue KaskadiWebhooksRestAPIGatewayRootResourceId
 
 functions:
   testLambda:
@@ -30,9 +27,11 @@ functions:
       include:
         - 'kaskadi-webhooks-status-lambda.js'
         - 'node_modules/**'
-    # configure here the proper event(s) that should trigger your lambda
+    environment:
+      ES_ACCESS_ID: ${env:ES_ACCESS_ID}
+      ES_ACCESS_SECRET: ${env:ES_ACCESS_SECRET}
     events:
       - http:
-          method: get
-          path: hello
+          method: post
+          path: webhooks/status
           cors: true
