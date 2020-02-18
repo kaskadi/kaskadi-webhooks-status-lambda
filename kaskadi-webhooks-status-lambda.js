@@ -44,7 +44,7 @@ function esLog(eventBody) {
   })
 }
 
-function updateOrderStatus(eventBody) {
+async function updateOrderStatus(eventBody) {
   const id = eventBody.eventData.externalId
   const orderStatus = eventBody.eventData.statusName
   const esData = await es.get({
