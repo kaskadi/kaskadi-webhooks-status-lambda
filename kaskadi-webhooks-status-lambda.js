@@ -8,18 +8,43 @@ const token = process.env.YSWS_TOKEN
 
 module.exports.handler = async (event) => {
   const eventBody = JSON.parse(event.body)
+  const response = {
+    statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify({
+      message: 'Webhook data received!'
+    })
+  }
   if (eventBody.token !== token) {
-    return {
-      statusCode: 401,
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify({
-        message: 'Unauthorized.'
-      })
-    }
+    response.statusCode = 401
+    response.body = JSON.stringify({
+      message: 'Unauthorized.'
+    })
+    return response
   }
   console.log(event.body)
+  esLog(eventBody)
+  updateOrderStatus(eventBody)
+  return response
+}
+
+function esLog(eventBody) {
+  const timestamp = Date.now()
+  const timestampHex = timestamp.toString(16)
+  const logDocId = `${timestampHex[0]}-${timestampHex.substr(1, 5)}-${timestampHex.substr(5, 5)}`
+  es.index({
+    id: logDocId,
+    index: 'status-webhook-log',
+    body: {
+      date: timestamp,
+      ...eventBody
+    }
+  })
+}
+
+function updateOrderStatus(eventBody) {
   const id = eventBody.eventData.externalId
   const orderStatus = eventBody.eventData.statusName
   const esData = await es.get({
@@ -35,15 +60,6 @@ module.exports.handler = async (event) => {
           orderStatus
         }
       }
-    })
-  }
-  return {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
-    body: JSON.stringify({
-      message: 'Webhook data received!'
     })
   }
 }
