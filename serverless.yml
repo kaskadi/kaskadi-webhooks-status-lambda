@@ -22,6 +22,8 @@ provider:
 functions:
   testLambda:
     handler: kaskadi-webhooks-status-lambda.handler
+    layers:
+      - !ImportValue KaskadiEsLayerArn
     name: ${self:service.name}
     package:
       include:

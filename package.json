@@ -22,7 +22,5 @@
   },
   "homepage": "https://github.com/kaskadi/kaskadi-webhooks-status-lambda#readme",
   "devDependencies": {},
-  "dependencies": {
-    "aws-es-client": "0.0.2"
-  }
+  "dependencies": {}
 }
