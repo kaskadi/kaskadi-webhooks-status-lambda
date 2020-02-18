@@ -20,7 +20,7 @@ provider:
     restApiRootResourceId: !ImportValue KaskadiWebhooksRestAPIGatewayRootResourceId
 
 functions:
-  testLambda:
+  KaskadiWebhookStatusLambda:
     handler: kaskadi-webhooks-status-lambda.handler
     layers:
       - !ImportValue KaskadiEsLayerArn
