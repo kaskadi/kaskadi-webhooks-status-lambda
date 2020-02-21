@@ -6,7 +6,7 @@
 
 ![](https://img.shields.io/github/workflow/status/kaskadi/kaskadi-webhooks-status-lambda/deploy?label=deployed&logo=Amazon%20AWS)
 <!-- Only for branches which are not release/** or master -->
-<!-- ![](https://img.shields.io/github/workflow/status/kaskadi/kaskadi-webhooks-status-lambda/test?label=test&logo=mocha) -->
+<!-- ![](https://img.shields.io/github/workflow/status/kaskadi/kaskadi-webhooks-status-lambda/syntax-test?label=test&logo=serverless) -->
 
 **CodeClimate**
 
