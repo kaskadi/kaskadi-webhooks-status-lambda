@@ -59,7 +59,8 @@ async function updateOrderStatus(eventBody) {
       body: {
         doc: {
           kaskadiMeta: {
-            orderStatus
+            orderStatus,
+            lastModified: Date.now()
           }
         }
       }
