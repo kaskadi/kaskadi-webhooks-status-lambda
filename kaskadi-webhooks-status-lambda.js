@@ -25,16 +25,16 @@ module.exports.handler = async (event) => {
     return response
   }
   console.log(event.body)
-  esLog(eventBody)
-  updateOrderStatus(eventBody)
+  await esLog(eventBody)
+  await updateOrderStatus(eventBody)
   return response
 }
 
-function esLog(eventBody) {
+async function esLog(eventBody) {
   const timestamp = Date.now()
   const timestampHex = timestamp.toString(16)
   const logDocId = `${timestampHex[0]}-${timestampHex.substr(1, 5)}-${timestampHex.substr(5, 5)}`
-  es.index({
+  await es.index({
     id: logDocId,
     index: 'ysws-logs',
     body: {
@@ -53,7 +53,7 @@ async function updateOrderStatus(eventBody) {
     index: 'ysws-orders'
   })
   if (esData._source.kaskadiMeta.orderStatus !== orderStatus) {
-    es.update({
+    await es.update({
       id,
       index: 'ysws-orders',
       body: {
