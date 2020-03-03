@@ -57,8 +57,10 @@ async function updateOrderStatus(eventBody) {
       id,
       index: 'ysws-orders',
       body: {
-        kaskadiMeta: {
-          orderStatus
+        doc: {
+          kaskadiMeta: {
+            orderStatus
+          }
         }
       }
     })
