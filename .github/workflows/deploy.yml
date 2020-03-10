@@ -22,7 +22,9 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
-        SLS_DEPLOY_BUCKET: ${{ secrets.SLS_DEPLOY_BUCKET }}
+        ES_ACCESS_ID: ${{ secrets.ES_ACCESS_ID }}
+        ES_ACCESS_SECRET: ${{ secrets.ES_ACCESS_SECRET }}
+        YSWS_TOKEN: ${{ secrets.YSWS_TOKEN }}
     - name: serverless-deploy
       uses: kaskadi/action-slscli@master
       with:
@@ -30,7 +32,6 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
-        SLS_DEPLOY_BUCKET: ${{ secrets.SLS_DEPLOY_BUCKET }}
         ES_ACCESS_ID: ${{ secrets.ES_ACCESS_ID }}
         ES_ACCESS_SECRET: ${{ secrets.ES_ACCESS_SECRET }}
         YSWS_TOKEN: ${{ secrets.YSWS_TOKEN }}

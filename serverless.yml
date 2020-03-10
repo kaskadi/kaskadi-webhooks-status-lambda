@@ -8,13 +8,12 @@ package:
 
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   stackName: ${self:service.name}-stack
   stage: ${opt:stage, 'prod'}
-  region: ${opt:region, 'eu-central-1'}
+  region: eu-central-1
   deploymentBucket:
-    name: ${env:SLS_DEPLOY_BUCKET}
-  deploymentPrefix: '@kaskadi/${self:service.name}'
+    name: kaskadi-serverless-deployment-bucket
   apiGateway:
     restApiId: !ImportValue KaskadiWebhooksRestAPIGatewayId
     restApiRootResourceId: !ImportValue KaskadiWebhooksRestAPIGatewayRootResourceId
@@ -38,5 +37,3 @@ functions:
           method: post
           path: status
           cors: true
-
-# force
