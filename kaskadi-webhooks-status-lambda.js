@@ -57,32 +57,12 @@ async function updateOrderStatus(eventBody) {
     id: eventBody.eventData.externalId,
     index: 'ysws-orders',
     body: {
-      script: {
-        source: "if (ctx._source.kaskadiMeta.orderStatus !== params.orderStatus) { ctx._source.kaskadiMeta.orderStatus = params.orderStatus; ctx._source.kaskadiMeta.lastModified = params.lastModified }",
-        lang: "painless",
-        params: {
-            orderStatus: eventBody.eventData.statusName,
-            lastModified: Date.now()
+      doc: {
+        kaskadiMeta: {
+          orderStatus: eventBody.eventData.statusName,
+          lastModified: Date.now()
         }
       }
     }
   })
-  // const esData = await es.get({
-  //   id,
-  //   index: 'ysws-orders'
-  // })
-  // if (esData._source.kaskadiMeta.orderStatus !== orderStatus) {
-  //   await es.update({
-  //     id,
-  //     index: 'ysws-orders',
-  //     body: {
-  //       doc: {
-  //         kaskadiMeta: {
-  //           orderStatus,
-  //           lastModified: Date.now()
-  //         }
-  //       }
-  //     }
-  //   })
-  // }
 }
