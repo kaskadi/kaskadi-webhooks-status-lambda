@@ -20,7 +20,5 @@
   "bugs": {
     "url": "https://github.com/kaskadi/kaskadi-webhooks-status-lambda/issues"
   },
-  "homepage": "https://github.com/kaskadi/kaskadi-webhooks-status-lambda#readme",
-  "devDependencies": {},
-  "dependencies": {}
+  "homepage": "https://github.com/kaskadi/kaskadi-webhooks-status-lambda#readme"
 }

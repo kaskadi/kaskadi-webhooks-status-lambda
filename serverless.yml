@@ -18,16 +18,28 @@ provider:
     restApiId: !ImportValue KaskadiWebhooksRestAPIGatewayId
     restApiRootResourceId: !ImportValue KaskadiWebhooksRestAPIGatewayRootResourceId
 
+layers:
+  KaskadiWebhooksStatusLayer:
+    path: layer
+    name: ${self:service.name}-layer
+    description: Layer for ${self:service.name}
+    compatibleRuntimes:
+      - nodejs10.x
+      - nodejs12.x
+    licenseInfo: MIT
+    package:
+      include:
+        - '**/**'
+
 functions:
   KaskadiWebhooksStatus:
     handler: kaskadi-webhooks-status-lambda.handler
     layers:
-      - !ImportValue KaskadiEsLayerArn
+      - { Ref: KaskadiWebhooksStatusLayerLambdaLayer }
     name: ${self:service.name}
     package:
       include:
         - 'kaskadi-webhooks-status-lambda.js'
-        - 'node_modules/**'
     environment:
       ES_ACCESS_ID: ${env:ES_ACCESS_ID}
       ES_ACCESS_SECRET: ${env:ES_ACCESS_SECRET}
