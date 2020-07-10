@@ -27,16 +27,18 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
-        ES_ACCESS_ID: ${{ secrets.ES_ACCESS_ID }}
-        ES_ACCESS_SECRET: ${{ secrets.ES_ACCESS_SECRET }}
+        ES_ID: ${{ secrets.ES_ID }}
+        ES_SECRET: ${{ secrets.ES_SECRET }}
+        ES_ENDPOINT: ${{ secrets.ES_ENDPOINT }}
         YSWS_TOKEN: ${{ secrets.YSWS_TOKEN }}
     - name: serverless-deploy
       uses: kaskadi/action-slscli@master
       with:
-        command: 'deploy -v'
+        command: '--version'
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_KEY_SECRET }}
-        ES_ACCESS_ID: ${{ secrets.ES_ACCESS_ID }}
-        ES_ACCESS_SECRET: ${{ secrets.ES_ACCESS_SECRET }}
+        ES_ID: ${{ secrets.ES_ID }}
+        ES_SECRET: ${{ secrets.ES_SECRET }}
+        ES_ENDPOINT: ${{ secrets.ES_ENDPOINT }}
         YSWS_TOKEN: ${{ secrets.YSWS_TOKEN }}
